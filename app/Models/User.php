@@ -15,6 +15,8 @@ use Illuminate\Notifications\Notifiable;
  * @property string $name
  * @property string $email
  * @property string $avatar
+ * @property string $provider
+ * @property string $provider_id
  * @property int $is_admin
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
@@ -55,6 +57,9 @@ class User extends Authenticatable
         'email',
         'avatar',
         'password',
+        'provider',
+        'provider_id',
+        'is_admin',
     ];
 
     /**

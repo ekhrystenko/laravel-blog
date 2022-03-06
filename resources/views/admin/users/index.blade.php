@@ -7,61 +7,74 @@
     <div class="content-wrapper">
         <section class="content-header">
             <div class="container-fluid">
-                    <div>
-                        @include('admin.include.messages')
-                    </div>
-{{--                <div class="row mb-2 col-lg-3">--}}
-{{--                    <a href="{{ route('posts.create') }}" class="btn btn-success ml-1"><i class="fas fa-plus mr-2"></i> Добавить пост</a>--}}
-{{--                </div>--}}
+                <div>
+                    @include('admin.include.messages')
+                </div>
             </div>
         </section>
 
         <section class="content">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Пользователи</h3>
-                        </div>
-                        <div class="card-body">
-                            <table id="posts" class="table table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Название</th>
-                                    <th>Превью</th>
-                                    <th>Категория</th>
-                                    <th>Просмотры</th>
-                                    <th>Дата создания</th>
-                                    <th>Дата обновления</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($posts as $post)
-                                <tr>
-                                    <td>{{ $post->id }}</td>
-                                    <td><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></td>
-                                    <td>{{ $post->preview }}</td>
-                                    <td>{{ $post->category->title }}</td>
-                                    <td>{{ $post->view }}</td>
-                                    <td>{{ $post->created_at }}</td>
-                                    <td>{{ $post->updated_at }}</td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Пользователи</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                            <i class="fas fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                            <i class="fas fa-times"></i></button>
                     </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped table-hover projects" id="categories">
+                        <thead>
+                        <tr>
+                            <th style="width: 1%">Аватар</th>
+                            <th style="width: 20%">Имя</th>
+                            <th style="width: 30%">Email</th>
+                            <th>Действия</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($users as $user)
+
+                            <div class="modal fade" id="photo{{ $user->id }}" tabindex="-1" aria-labelledby="photo" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-body">
+                                        <img src="{{ ($user->provider != null) ? $user->avatar : "/public/storage/avatar/" . $user->avatar }}" alt="photo" style="width: 500px; height: 500px">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <tr>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#photo{{ $user->id }}" style="cursor: pointer">
+                                        <img src="{{ ($user->provider != null) ? $user->avatar : "/public/storage/avatar/" . $user->avatar }}" alt="photo" style="width: 160px; height: 170px; border-radius: 50%">
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ $user->name }}
+                                </td>
+                                <td class="project_progress">
+                                    {{ $user->email }}
+                                </td>
+                                <td class="project-actions">
+                                    <a href="{{ route('users.edit', $user) }}" class="btn btn-warning">
+                                        <i class="fas fa-pencil-alt"> Редактировать</i>
+                                    </a>
+                                    <a data-bs-toggle="modal" data-bs-target="#delete{{ $user->id }}" type="button" class="btn btn-danger">
+                                        <i class="fas fa-trash"> Удалить</i>
+                                    </a>
+                                    @include('admin.modal.user-delete', $user)
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
     </div>
 @endsection
 
-@section('datatables')
-    <script>
-        $(document).ready( function () {
-            $('#posts').DataTable();
-        });
-    </script>
-@endsection

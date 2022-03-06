@@ -26,7 +26,7 @@ class UserFactory extends Factory
             'name' => config('default.admin.name'),
             'email' => config('default.admin.email'),
             'is_admin' => config('default.admin.is_admin'),
-            'avatar' => $this->faker->image('public/storage/avatar', 75, 75, null, false),
+            'avatar' => config('default.admin.avatar'),
             'email_verified_at' => now(),
             'password' => Hash::make(config('default.admin.pass')),
         ];

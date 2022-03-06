@@ -10,19 +10,19 @@
             <form action="{{ route('login') }}" method="POST" id="login-form">
                 @csrf
                 <h5 class="text-center">Вход</h5>
-                <div class="mb-3">
+                <div class="mb-3 mt-3">
                     <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}">
-                    <span class="t-1 error_messages email_error"></span>
                     @error('email')
                         <p class="t-1 error_messages">{{ $message }}</p>
                     @enderror
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 password">
                     <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Пароль">
-                    <span class="t-1 error_messages password_error"></span>
+                    <span id="show-pass" title="Показать пароль"><i class="far fa-eye"></i></span>
                     @error('password')
                         <p class="t-1 error_messages">{{ $message }}</p>
                     @enderror
+
                 </div>
                 <div class="mb-3 form-check">
                     <input type="checkbox" class="form-check-input" name="remember" id="remember">
@@ -35,8 +35,7 @@
             </form>
             <div class="links text-center mb-2">
                 <p>Войти с помощью:</p>
-                <a href="#"><img src="{{ asset('img/facebook.png') }}" alt="facebook"></a>
-                <a href="#"><img src="{{ asset('img/google.png') }}" alt="google"></a>
+                <a href="{{ url('/login/github') }}"><img src="{{ asset('img/github.jpg') }}" alt="github"></a>
             </div>
             <div class="footer text-center">
                 Нет аккаутна? <a href="{{ route('register') }}" class="sign-up">Регистрация</a>
@@ -45,3 +44,4 @@
     </div>
 </div>
 @endsection
+

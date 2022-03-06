@@ -4,8 +4,8 @@
     box-sizing: border-box;
 }
 .links a img{
-    width: 45px;
-    height: 45px;
+    width: 130px;
+    /*height: 80px;*/
 }
 .wrapper_login, .wrapper_register {
     padding: 25px;
@@ -36,4 +36,32 @@
 }
 .admin {
     color: blue !important;
+}
+.btn-top {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 40px;
+    z-index: 99;
+    border: none;
+    cursor: pointer;
+    background: #D3D3D3;
+    color: #000;
+    padding: 10px;
+    border-radius: 100%;
+    text-decoration: none;
+}
+
+.btn-top:hover {
+    background: #A9A9A9;
+    color: #000;
+}
+.password, .password-confirm {
+    position: relative;
+}
+#show-pass, #show-pass-confirm{
+    position: absolute;
+    cursor: pointer;
+    right: 10px;
+    top: 6px;
 }

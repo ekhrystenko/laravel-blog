@@ -28,7 +28,7 @@
                 <a class="nav-link" style="cursor:pointer;">
                     <p class="image">
                         <img style="width: 35px; height: 35px"
-                             src="{{ "/public/storage/avatar/" . Auth()->user()->avatar }}"
+                             src="{{ (Auth()->user()->provider != null) ? Auth()->user()->avatar : "/public/storage/avatar/" . Auth()->user()->avatar }}"
                              class="img-circle elevation-2 mr-2" alt="User Image">
                     </p>
                     <span>{{ Auth()->user()->name }}</span>
@@ -124,6 +124,17 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('users.index') }}" class="nav-link" style="cursor:pointer;">
+                        <i class="fas fa-users mr-2"></i>
+                        <p>
+                            Пользователи
+                        </p>
+                    </a>
                 </li>
             </ul>
         </nav>

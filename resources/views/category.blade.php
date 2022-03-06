@@ -21,7 +21,7 @@
                         <div class="btn-group">
                             <a href="{{ route('show.post', [$post->category->id, $post->id]) }}" type="button" class="btn btn-sm btn-outline-secondary">Посмотреть</a>
                         </div>
-                        <small class="text-muted">{{ $post->created_at->format('d.m.Y H:i:s') }}</small>
+                        <small class="text-muted">{{ $post->created_at }}</small>
                     </div>
                 </div>
             </div>

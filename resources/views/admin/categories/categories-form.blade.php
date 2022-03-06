@@ -3,6 +3,7 @@
 @section('title', isset($category) ? 'Редактировать категорию '. $category->title : 'Добавить категорию')
 
 @section('content')
+    @include('admin.modal.added-success')
 
     @if(isset($category))
     <!-- Content Wrapper. Contains page content -->
@@ -50,24 +51,19 @@
                         <div class="card-header">
                             <h3 class="card-title">Добавить категорию</h3>
                         </div>
-                        <form action="{{ route('categories.store') }}" method="POST">
+                        <form action="{{ route('categories.store') }}" method="POST" id="add-category-form">
                             @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Название</label>
                                     <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" placeholder="Название" value="{{ old('title') }}">
-                                        @error('title')
-                                            <p class="mt-1" style="color: red">
-                                                {{ $message }}
-                                            </p>
-                                        @enderror
+                                    <p class="error-text title-error text-danger"></p>
                                     <button type="submit" class="btn btn-success mt-3">Создать</button>
                                     <a href="{{ route('categories.index') }}" class="btn btn-secondary mt-3">Назад</a>
                                 </div>
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </section>

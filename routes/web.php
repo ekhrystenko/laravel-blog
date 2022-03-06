@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 
@@ -22,6 +23,7 @@ Route::prefix('admin')->middleware('auth')->group(function (){
     Route::resource('categories', CategoriesController::class)->except('show');
     Route::resource('posts', PostsController::class);
     Route::resource('profile', ProfileController::class)->only('index', 'edit', 'update');
+    Route::resource('users', UsersController::class);
 });
 
 Route::get('/', [IndexController::class, 'index'])->name('home');
@@ -35,4 +37,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/category/{id}', [IndexController::class, 'category'])->name('category');
 Route::get('/category/{id}/post/{post_id}', [IndexController::class, 'showPost'])->name('show.post');
+
+Route::get('login/github', [AuthController::class, 'redirectToProvider']);
+Route::get('github/callback', [AuthController::class, 'handleProviderCallback']);
 

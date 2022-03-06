@@ -10,9 +10,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class ProfileController extends Controller
 {
@@ -75,7 +72,7 @@ class ProfileController extends Controller
      * @param User $user
      * @return RedirectResponse
      */
-    public function update(ProfileRequest $request, User $user): RedirectResponse
+    public function update(ProfileRequest $request, User $user)
     {
         $user = User::find(1)->first();
         if ($request->file(['avatar'])){

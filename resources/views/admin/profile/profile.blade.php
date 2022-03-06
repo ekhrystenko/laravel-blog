@@ -8,7 +8,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Редактировать {{ $admin->name }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Редактирование</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form action="{{ route('profile.update', $admin->id) }}" method="POST" enctype="multipart/form-data">
@@ -34,19 +34,31 @@
                             <input type="file" class="form-control @error('image') is-invalid @enderror" id="avatar" name="avatar" value="{{ $admin->avatar }}">
                         </div>
                         <div class="mb-3">
-                            <label for="password" class="form-label">Пароль</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Пароль" value="{{ $admin->password }}">
-                            @error('password')
-                            <p class="t-1 error_messages">{{ $message }}</p>
-                            @enderror
+                            <label for="is_admin" class="col-form-label">Роль</label>
+                            <select class="form-select" name="is_admin">
+                                @if ($admin->is_admin == 1)
+                                    <option value="1" selected>Админ</option>
+                                    <option value="0">Пользователь</option>
+                                @else
+                                    <option value="0" selected>Пользователь</option>
+                                    <option value="1">Админ</option>
+                                @endif
+                            </select>
                         </div>
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Подтверждение пароля</label>
-                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Повторите пароль" value="{{ $admin->password }}">
-                            @error('password_confirmation')
-                            <p class="t-1 error_messages">{{ $message }}</p>
-                            @enderror
-                        </div>
+{{--                        <div class="mb-3">--}}
+{{--                            <label for="password" class="form-label">Пароль</label>--}}
+{{--                            <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Пароль" value="{{ $admin->password }}">--}}
+{{--                            @error('password')--}}
+{{--                            <p class="t-1 error_messages">{{ $message }}</p>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
+{{--                        <div class="mb-3">--}}
+{{--                            <label for="password_confirmation" class="form-label">Подтверждение пароля</label>--}}
+{{--                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Повторите пароль" value="{{ $admin->password }}">--}}
+{{--                            @error('password_confirmation')--}}
+{{--                            <p class="t-1 error_messages">{{ $message }}</p>--}}
+{{--                            @enderror--}}
+{{--                        </div>--}}
                         <button type="submit" class="btn btn-warning">Сохранить</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Назад</button>
                     </div>
@@ -70,9 +82,10 @@
                         @include('admin.include.messages')
                     </div>
                 <div class="card-body box-profile">
-                    <div class="text-center">
+                    <div class="text-center edit_avatar">
                         <a data-bs-toggle="modal" data-bs-target="#photo"><img class="profile-user-img img-fluid img-circle" src="{{ "/public/storage/avatar/" . $admin->avatar }}" alt="User profile picture" style="height: 140px; width: 140px"></a>
                     </div>
+{{--                    <span class="edit"><i class="fas fa-plus"></i></span>--}}
 
                     <h3 class="profile-username text-center">{{ $admin->name }}</h3>
 
@@ -84,9 +97,6 @@
                         </li>
                         <li class="list-group-item">
                             <b>Роль</b> <a class="float-right">@if(auth()->user()->isAdmin()) Администратор сайта @endif</a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Пароль</b> <a class="float-right">{{ $admin->password }}</a>
                         </li>
                         <li class="list-group-item">
                             <b>Дата создания</b> <a class="float-right">{{ $admin->created_at }}</a>
